@@ -82,13 +82,11 @@
                     </h1>
                     <div class="flex flex-wrap gap-6 text-sm text-gray-500 font-medium">
                         <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-lg">calendar_today</span>
                             <span>작성일: </span>
                             <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2024-02-23
                                 16:00</span>
                         </div>
                         <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-lg">edit_calendar</span>
                             <span>수정일: </span>
                             <span th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}">2024-02-23
                                 16:00</span>
