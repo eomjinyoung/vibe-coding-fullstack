@@ -28,4 +28,15 @@ public class PostRepository {
     public List<Post> findAll() {
         return new ArrayList<>(store);
     }
+
+    public Post findByNo(Long no) {
+        return store.stream()
+                .filter(post -> post.getNo().equals(no))
+                .findFirst()
+                .map(post -> {
+                    post.setViews(post.getViews() + 1);
+                    return post;
+                })
+                .orElse(null);
+    }
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>바이브코딩 | 게시글 목록</title>
+    <title>바이브코딩 | 게시글 상세</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
         rel="stylesheet" />
@@ -50,7 +50,7 @@
                 <span class="text-xl font-bold tracking-tight text-black">바이브코딩</span>
             </div>
             <div class="hidden md:flex items-center gap-10">
-                <a class="text-sm font-semibold hover:text-accent transition-colors" href="/posts">게시판</a>
+                <a class="text-sm font-semibold hover:text-accent transition-colors" href="/posts">게시물 목록</a>
                 <a class="text-sm font-semibold hover:text-accent transition-colors" href="#">강의</a>
                 <a class="text-sm font-semibold hover:text-accent transition-colors" href="#">멘토링</a>
             </div>
@@ -65,47 +65,59 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-32 pb-24 min-h-screen">
-        <div class="max-w-7xl mx-auto px-6">
-            <header class="mb-12">
-                <h1 class="text-4xl font-bold tracking-tight mb-4">게시글 목록</h1>
-                <p class="text-gray-500 font-medium">바이브코딩의 최신 소식과 지식을 만나보세요.</p>
-            </header>
-
-            <!-- Post List Table -->
+    <main class="pt-40 pb-24 min-h-screen bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
             <div class="bg-white rounded-3xl border border-gray-100 samsung-shadow overflow-hidden">
-                <table class="w-full text-left">
-                    <thead class="bg-gray-50 border-b border-gray-100">
-                        <tr>
-                            <th class="px-8 py-5 text-sm font-bold text-gray-500 uppercase tracking-wider w-20">번호</th>
-                            <th class="px-8 py-5 text-sm font-bold text-gray-500 uppercase tracking-wider">제목</th>
-                            <th class="px-8 py-5 text-sm font-bold text-gray-500 uppercase tracking-wider w-40">생성일</th>
-                            <th class="px-8 py-5 text-sm font-bold text-gray-500 uppercase tracking-wider w-32">조회수</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100 text-gray-700">
-                        <tr th:each="post : ${posts}" th:onclick="|location.href='/posts/${post.no}'|"
-                            class="hover:bg-gray-50 transition-colors cursor-pointer">
-                            <td class="px-8 py-6 font-medium" th:text="${post.no}">1</td>
-                            <td class="px-8 py-6 font-bold text-black" th:text="${post.title}">테스트 게시글 제목</td>
+                <!-- Header -->
+                <div class="p-10 border-b border-gray-100">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="px-4 py-1.5 bg-black text-white text-xs font-bold rounded-full"
+                            th:text="'No. ' + ${post.no}">No. 1</span>
+                        <span class="inline-flex items-center gap-1.5 text-gray-400 text-sm">
+                            <span class="material-symbols-outlined text-sm">visibility</span>
+                            <span th:text="${post.views}">0</span>
+                        </span>
+                    </div>
+                    <h1 class="text-3xl md:text-4xl font-bold tracking-tight mb-8" th:text="${post.title}">게시글 제목입니다.
+                    </h1>
+                    <div class="flex flex-wrap gap-6 text-sm text-gray-500 font-medium">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">calendar_today</span>
+                            <span>작성일: </span>
+                            <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">2024-02-23
+                                16:00</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">edit_calendar</span>
+                            <span>수정일: </span>
+                            <span th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}">2024-02-23
+                                16:00</span>
+                        </div>
+                    </div>
+                </div>
 
-                            <td class="px-8 py-6 text-gray-500 text-sm"
-                                th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}">2024-02-23</td>
-                            <td class="px-8 py-6">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gray-100 text-xs font-bold text-gray-600">
-                                    <span class="material-symbols-outlined text-sm">visibility</span>
-                                    <span th:text="${post.views}">0</span>
-                                </span>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <!-- Content -->
+                <div class="p-10 min-h-[400px]">
+                    <div class="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap" th:text="${post.content}">
+                        본문 내용이 여기에 들어갑니다.
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="px-10 py-8 bg-gray-50 border-t border-gray-100 flex justify-end gap-4">
+                    <button onclick="location.href='/posts'"
+                        class="px-8 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition-all">
+                        목록으로
+                    </button>
+                    <button class="px-8 py-3 bg-black text-white font-bold rounded-xl hover:bg-gray-800 transition-all">
+                        수정하기
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer (Basic) -->
+    <!-- Footer -->
     <footer class="bg-white border-t border-gray-100 py-12">
         <div class="max-w-7xl mx-auto px-6 text-center text-gray-400 text-sm">
             <p>© 2024 Vibe Coding. All rights reserved.</p>
