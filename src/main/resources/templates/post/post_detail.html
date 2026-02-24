@@ -96,8 +96,16 @@
 
                 <!-- Content -->
                 <div class="p-10 min-h-[400px]">
-                    <div class="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap" th:text="${post.content}">
+                    <div class="text-lg leading-relaxed text-gray-700 whitespace-pre-wrap mb-10"
+                        th:text="${post.content}">
                         본문 내용이 여기에 들어갑니다.
+                    </div>
+
+                    <!-- Tags Display -->
+                    <div th:if="${post.tags != null and !post.tags.isEmpty()}" class="flex flex-wrap gap-2 mt-10">
+                        <span th:each="tag : ${#strings.arraySplit(post.tags, ',')}"
+                            class="px-3 py-1 bg-gray-100 text-gray-600 text-xs font-bold rounded-lg"
+                            th:text="'#' + ${tag.trim()}">#tag</span>
                     </div>
                 </div>
 

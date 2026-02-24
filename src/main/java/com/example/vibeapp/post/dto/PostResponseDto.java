@@ -9,8 +9,9 @@ public record PostResponseDto(
         String content,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
-        Integer views) {
-    public static PostResponseDto from(Post post) {
+        Integer views,
+        String tags) {
+    public static PostResponseDto from(Post post, String tags) {
         if (post == null)
             return null;
         return new PostResponseDto(
@@ -19,6 +20,7 @@ public record PostResponseDto(
                 post.getContent(),
                 post.getCreatedAt(),
                 post.getUpdatedAt(),
-                post.getViews());
+                post.getViews(),
+                tags);
     }
 }
