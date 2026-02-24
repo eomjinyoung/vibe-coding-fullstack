@@ -66,6 +66,7 @@ public class PostService {
 
     @Transactional
     public void delete(Long no) {
+        postTagRepository.deleteByPostNo(no);
         postRepository.deleteById(no);
     }
 

@@ -8,13 +8,24 @@ import java.time.LocalDateTime;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "NO")
     private Long no;
+
+    @Column(name = "TITLE", nullable = false)
     private String title;
+
     @Lob
+    @Column(name = "CONTENT", nullable = false)
     private String content;
-    private LocalDateTime createdAt;
+
+    @Column(name = "CREATED_AT", updatable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    @Column(name = "UPDATED_AT")
     private LocalDateTime updatedAt;
-    private Integer views;
+
+    @Column(name = "VIEWS")
+    private Integer views = 0;
 
     public Post() {
     }

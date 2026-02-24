@@ -7,8 +7,13 @@ import jakarta.persistence.*;
 public class PostTag {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
     private Long id;
+
+    @Column(name = "POST_NO", nullable = false)
     private Long postNo;
+
+    @Column(name = "TAG_NAME", nullable = false)
     private String tagName;
 
     public PostTag() {
