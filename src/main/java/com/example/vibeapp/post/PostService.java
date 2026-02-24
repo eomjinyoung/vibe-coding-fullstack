@@ -45,8 +45,8 @@ public class PostService {
     public void update(Long no, PostUpdateDto dto) {
         Post post = postRepository.findById(no);
         if (post != null) {
-            post.setTitle(dto.getTitle());
-            post.setContent(dto.getContent());
+            post.setTitle(dto.title());
+            post.setContent(dto.content());
             post.setUpdatedAt(java.time.LocalDateTime.now());
         }
     }
