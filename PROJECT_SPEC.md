@@ -11,7 +11,12 @@
   - **DSL**: Groovy DSL (`build.gradle`)
 - **의존성 (Dependencies)**:
   - `spring-boot-starter-web`
+  - `spring-boot-starter-jdbc`
+  - `spring-boot-starter-data-jpa`
   - `spring-boot-starter-thymeleaf`
+  - `spring-boot-starter-validation`
+  - `mybatis-spring-boot-starter:4.0.0`
+  - `com.h2database:h2`
 
 
 ## 2. 플러그인 (Plugins)
@@ -31,29 +36,40 @@
 ## 4. 설정 (Configuration)
 
 - **설정 파일**: YAML 형식 사용 (`application.yml`)
+- **데이터베이스 (DB)**: H2 Database (File Mode)
+- **Persistence Framework**: MyBatis (XML Mapper 사용)
 
 ## 5. 프로젝트 구조 (Project Structure)
 
 ### 패키지 구조 (Package Structure)
 - `com.example.vibeapp.home`: 홈 화면 및 공통 API 관련 컨트롤러
-- `com.example.vibeapp.post`: 게시글 CRUD, 페이징 로직 (Entity, Repository, Service, Controller)
+- `com.example.vibeapp.post`: 게시글 CRUD, 페이징, 태그 로직 (Entity, Repository, Service, Controller)
+- `com.example.vibeapp.post.dto`: 데이터 전송 객체 (Record 사용)
 
 ### 뷰 템플릿 구조 (View Templates)
 - `src/main/resources/templates/home/`: 메인 페이지 (`home.html`)
 - `src/main/resources/templates/post/`: 게시글 관련 페이지 (`posts.html`, `post_detail.html`, `post_new_form.html`, `post_edit_form.html`)
 
+### Mapper XML
+- `src/main/resources/mapper/post/`: Post 및 PostTag SQL 매퍼 파일
+
 ## 6. 구현된 기능 (Implemented Features)
 
-- **게시글 관리 (CRUD)**: 게시글 등록, 목록 조회, 상세 조회, 수정, 삭제 기능
+- **게시글 및 태그 관리 (CRUD)**:
+  - 게시글 등록, 목록 조회, 상세 조회, 수정, 삭제 기능
+  - 쉼표(,) 구분자를 활용한 태그 입력 및 표시 기능
+- **트랜잭션 관리 (Transaction)**:
+  - `@Transactional`을 이용한 게시글 및 태그 작업의 원자성 보장
 - **페이징 처리 (Pagination)**:
-  - 한 페이지당 5개의 게시글 출력
-  - 이전/다음 및 페이지 번호 네비게이션 구현
+  - MyBatis SQL (`LIMIT`, `OFFSET`)을 통한 페이징 구현
+  - 한 페이지당 5개의 게시글 출력 및 네비게이션 UI
 - **UI/UX**:
   - **Tailwind CSS**: 프리미엄 테마 및 반응형 디자인 적용
-  - **SVG 아이콘**: 페이지 이동 및 시각적 요소에 고품질 SVG 사용
-  - **조회수 증가**: 상세 조회 시 조회수 자동 증가 로직 포함
+  - **SVG 아이콘**: 고품질 시각적 요소 적용
+  - **조회수 증가**: 상세 조회 시 조회수 자동 증가
 
 ## 7. 명명 규칙 (Naming Conventions)
 
-- **Repository/Service**: Spring Data JPA 관례를 따름 (`findById`, `findAll`, `create`, `update`, `delete` 등)
+- **Repository/Service**: Spring Data 관례를 따름 (`findById`, `findAll`, `create`, `update`, `delete` 등)
 - **View**: 기능별 하위 폴더 기반 경로 사용
+- **DTO**: Java Record 형식을 기본으로 사용
