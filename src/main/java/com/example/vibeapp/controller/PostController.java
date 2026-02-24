@@ -38,7 +38,14 @@ public class PostController {
         return "post_edit_form";
     }
 
+    @GetMapping("/posts/{no}/delete")
+    public String delete(@PathVariable("no") Long no) {
+        postService.deletePost(no);
+        return "redirect:/posts";
+    }
+
     @org.springframework.web.bind.annotation.PostMapping("/posts/{no}/save")
+
     public String save(@PathVariable("no") Long no, String title, String content) {
         postService.updatePost(no, title, content);
         return "redirect:/posts/" + no;

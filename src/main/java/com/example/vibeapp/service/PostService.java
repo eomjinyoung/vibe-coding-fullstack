@@ -36,7 +36,12 @@ public class PostService {
         }
     }
 
+    public void deletePost(Long no) {
+        postRepository.deleteByNo(no);
+    }
+
     public void registerPost(String title, String content) {
+
         Post post = new Post();
         post.setTitle(title);
         post.setContent(content);

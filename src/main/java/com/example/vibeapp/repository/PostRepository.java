@@ -45,7 +45,12 @@ public class PostRepository {
                 .ifPresent(post -> post.setViews(post.getViews() + 1));
     }
 
+    public void deleteByNo(Long no) {
+        store.removeIf(post -> post.getNo().equals(no));
+    }
+
     public void save(Post post) {
+
         post.setNo(++sequence);
         store.add(post);
     }
