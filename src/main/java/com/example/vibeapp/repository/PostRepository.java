@@ -35,10 +35,18 @@ public class PostRepository {
         return store.stream()
                 .filter(post -> post.getNo().equals(no))
                 .findFirst()
-                .map(post -> {
-                    post.setViews(post.getViews() + 1);
-                    return post;
-                })
                 .orElse(null);
+    }
+
+    public void increaseViews(Long no) {
+        store.stream()
+                .filter(post -> post.getNo().equals(no))
+                .findFirst()
+                .ifPresent(post -> post.setViews(post.getViews() + 1));
+    }
+
+    public void save(Post post) {
+        post.setNo(++sequence);
+        store.add(post);
     }
 }

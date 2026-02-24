@@ -107,9 +107,11 @@
                         class="px-8 py-3 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition-all">
                         목록으로
                     </button>
-                    <button class="px-8 py-3 bg-black text-white font-bold rounded-xl hover:bg-gray-800 transition-all">
+                    <button th:onclick="|location.href='/posts/${post.no}/edit'|"
+                        class="px-8 py-3 bg-black text-white font-bold rounded-xl hover:bg-gray-800 transition-all">
                         수정하기
                     </button>
+
                 </div>
             </div>
         </div>

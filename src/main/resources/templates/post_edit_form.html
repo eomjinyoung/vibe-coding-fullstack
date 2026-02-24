@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>바이브코딩 | 게시글 수정</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#000000",
+                        "accent": "#2189ff",
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -0.01em;
+        }
+
+        .samsung-shadow {
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06);
+        }
+    </style>
+</head>
+
+<body class="bg-white text-black selection:bg-black/10">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer" onclick="location.href='/'">
+                <div class="bg-black p-1.5 rounded-lg text-white">
+                    <svg class="size-6" fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
+                    </svg>
+                </div>
+                <span class="text-xl font-bold tracking-tight text-black">바이브코딩</span>
+            </div>
+            <div class="hidden md:flex items-center gap-10">
+                <a class="text-sm font-semibold hover:text-accent transition-colors" href="/posts">게시물 목록</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-40 pb-24 min-h-screen bg-gray-50">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="bg-white rounded-3xl border border-gray-100 samsung-shadow p-10">
+                <h1 class="text-3xl font-bold mb-10 tracking-tight">게시글 수정</h1>
+
+                <form th:action="@{/posts/{no}/save(no=${post.no})}" method="post">
+                    <div class="space-y-8">
+                        <!-- Read-only fields -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-400 mb-2">번호</label>
+                                <input type="text" th:value="${post.no}" readonly
+                                    class="w-full bg-gray-50 border-gray-200 rounded-xl text-gray-500 font-medium focus:ring-0 cursor-default" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-400 mb-2">조회수</label>
+                                <input type="text" th:value="${post.views}" readonly
+                                    class="w-full bg-gray-50 border-gray-200 rounded-xl text-gray-500 font-medium focus:ring-0 cursor-default" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-400 mb-2">생성일</label>
+                                <input type="text" th:value="${#temporals.format(post.createdAt, 'yyyy-MM-dd')}"
+                                    readonly
+                                    class="w-full bg-gray-50 border-gray-200 rounded-xl text-gray-500 font-medium focus:ring-0 cursor-default" />
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-400 mb-2">수정일</label>
+                                <input type="text"
+                                    th:value="${post.updatedAt != null ? #temporals.format(post.updatedAt, 'yyyy-MM-dd') : ''}"
+                                    readonly
+                                    class="w-full bg-gray-50 border-gray-200 rounded-xl text-gray-500 font-medium focus:ring-0 cursor-default" />
+                            </div>
+                        </div>
+
+                        <!-- Editable fields -->
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">제목</label>
+                            <input type="text" name="title" th:value="${post.title}" placeholder="제목을 입력하세요"
+                                class="w-full border-gray-200 rounded-xl px-4 py-3 focus:border-black focus:ring-0 transition-all font-medium" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">내용</label>
+                            <textarea name="content" rows="12" th:text="${post.content}" placeholder="내용을 입력하세요"
+                                class="w-full border-gray-200 rounded-xl px-4 py-3 focus:border-black focus:ring-0 transition-all font-medium resize-none"></textarea>
+                        </div>
+
+
+                        <!-- Action Buttons -->
+                        <div class="flex justify-end gap-4 pt-4">
+                            <button type="button" th:onclick="|location.href='/posts/${post.no}'|"
+                                class="px-10 py-3.5 bg-white border border-gray-200 text-gray-700 font-bold rounded-xl hover:bg-gray-100 transition-all">
+                                취소
+                            </button>
+                            <button type="submit"
+                                class="px-10 py-3.5 bg-black text-white font-bold rounded-xl hover:bg-gray-800 transition-all shadow-lg shadow-black/5">
+                                저장
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-100 py-12">
+        <div class="max-w-7xl mx-auto px-6 text-center text-gray-400 text-sm">
+            <p>© 2024 Vibe Coding. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
