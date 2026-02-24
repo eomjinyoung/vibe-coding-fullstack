@@ -5,10 +5,12 @@ import com.example.vibeapp.post.dto.PostListDto;
 import com.example.vibeapp.post.dto.PostResponseDto;
 import com.example.vibeapp.post.dto.PostUpdateDto;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional(readOnly = true)
 public class PostService {
     private final PostRepository postRepository;
     private final PostTagRepository postTagRepository;
@@ -48,6 +50,7 @@ public class PostService {
                 .collect(Collectors.joining(", "));
     }
 
+    @Transactional
     public void update(Long no, PostUpdateDto dto) {
         Post post = postRepository.findById(no);
         if (post != null) {
@@ -61,10 +64,12 @@ public class PostService {
         }
     }
 
+    @Transactional
     public void delete(Long no) {
         postRepository.deleteById(no);
     }
 
+    @Transactional
     public void create(PostCreateDto dto) {
         Post post = dto.toEntity();
         postRepository.save(post);
