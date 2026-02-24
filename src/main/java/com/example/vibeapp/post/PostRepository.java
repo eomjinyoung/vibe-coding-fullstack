@@ -34,7 +34,7 @@ public class PostRepository {
         return store.size();
     }
 
-    public Post findByNo(Long no) {
+    public Post findById(Long no) {
         return store.stream()
                 .filter(post -> post.getNo().equals(no))
                 .findFirst()
@@ -48,7 +48,7 @@ public class PostRepository {
                 .ifPresent(post -> post.setViews(post.getViews() + 1));
     }
 
-    public void deleteByNo(Long no) {
+    public void deleteById(Long no) {
         store.removeIf(post -> post.getNo().equals(no));
     }
 

@@ -19,7 +19,7 @@ public class PostController {
     public String list(@org.springframework.web.bind.annotation.RequestParam(defaultValue = "1") int page,
             Model model) {
         int size = 5;
-        List<Post> posts = postService.findPosts(page, size);
+        List<Post> posts = postService.findAll(page, size);
         int totalPages = postService.getTotalPages(size);
 
         model.addAttribute("posts", posts);
@@ -37,35 +37,35 @@ public class PostController {
 
     @GetMapping("/posts/{no}")
     public String detail(@PathVariable("no") Long no, Model model) {
-        Post post = postService.viewPost(no);
+        Post post = postService.view(no);
         model.addAttribute("post", post);
         return "post/post_detail";
     }
 
     @GetMapping("/posts/{no}/edit")
     public String editForm(@PathVariable("no") Long no, Model model) {
-        Post post = postService.getPost(no);
+        Post post = postService.findById(no);
         model.addAttribute("post", post);
         return "post/post_edit_form";
     }
 
     @GetMapping("/posts/{no}/delete")
     public String delete(@PathVariable("no") Long no) {
-        postService.deletePost(no);
+        postService.delete(no);
         return "redirect:/posts";
     }
 
     @org.springframework.web.bind.annotation.PostMapping("/posts/{no}/save")
 
-    public String save(@PathVariable("no") Long no, String title, String content) {
-        postService.updatePost(no, title, content);
+    public String update(@PathVariable("no") Long no, String title, String content) {
+        postService.update(no, title, content);
         return "redirect:/posts/" + no;
     }
 
     @org.springframework.web.bind.annotation.PostMapping("/posts/add")
 
-    public String add(String title, String content) {
-        postService.registerPost(title, content);
+    public String create(String title, String content) {
+        postService.create(title, content);
         return "redirect:/posts";
     }
 }
