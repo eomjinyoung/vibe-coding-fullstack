@@ -37,7 +37,8 @@
 
 - **설정 파일**: YAML 형식 사용 (`application.yml`)
 - **데이터베이스 (DB)**: H2 Database (File Mode)
-- **Persistence Framework**: MyBatis (XML Mapper 사용)
+- **Persistence Framework**: 순수 JPA ORM (`EntityManager` 직접 사용)
+  - Spring Data JPA Repository 사용 안 함
 
 ## 5. 프로젝트 구조 (Project Structure)
 

@@ -1,6 +1,12 @@
 package com.example.vibeapp.post;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "POST_TAGS")
 public class PostTag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long postNo;
     private String tagName;
