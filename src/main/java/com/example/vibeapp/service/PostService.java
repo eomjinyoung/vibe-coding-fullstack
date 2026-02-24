@@ -18,6 +18,21 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    public List<Post> findPosts(int page, int size) {
+        List<Post> allPosts = postRepository.findAll();
+        int totalCount = allPosts.size();
+        int fromIndex = (page - 1) * size;
+        if (fromIndex >= totalCount) {
+            return List.of();
+        }
+        int toIndex = Math.min(fromIndex + size, totalCount);
+        return allPosts.subList(fromIndex, toIndex);
+    }
+
+    public int getTotalPages(int size) {
+        return (int) Math.ceil((double) postRepository.count() / size);
+    }
+
     public Post viewPost(Long no) {
         postRepository.increaseViews(no);
         return postRepository.findByNo(no);

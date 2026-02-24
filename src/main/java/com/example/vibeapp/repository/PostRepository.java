@@ -31,6 +31,10 @@ public class PostRepository {
                 .toList();
     }
 
+    public long count() {
+        return store.size();
+    }
+
     public Post findByNo(Long no) {
         return store.stream()
                 .filter(post -> post.getNo().equals(no))

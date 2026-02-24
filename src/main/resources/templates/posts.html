@@ -109,6 +109,35 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination -->
+            <div th:if="${totalPages > 0}" class="mt-8 flex items-center justify-center gap-2">
+                <!-- Previous Button -->
+                <a th:href="@{/posts(page=${currentPage - 1})}"
+                    th:classappend="${!hasPrev} ? 'pointer-events-none opacity-50' : 'hover:bg-gray-100'"
+                    class="flex items-center justify-center size-11 rounded-xl bg-white border border-gray-100 samsung-shadow text-gray-500 transition-all">
+                    <span class="material-symbols-outlined">chevron_left</span>
+                </a>
+
+                <!-- Page Numbers -->
+                <div
+                    class="flex items-center gap-2 bg-white px-2 py-1.5 rounded-2xl border border-gray-100 samsung-shadow">
+                    <a th:each="pageNum : ${#numbers.sequence(1, totalPages)}" th:href="@{/posts(page=${pageNum})}"
+                        th:text="${pageNum}"
+                        th:classappend="${pageNum == currentPage} ? 'bg-black text-white shadow-lg shadow-black/10' : 'text-gray-500 hover:bg-gray-50'"
+                        class="flex items-center justify-center size-8 rounded-lg text-sm font-bold transition-all">
+                        1
+                    </a>
+                </div>
+
+                <!-- Next Button -->
+                <a th:href="@{/posts(page=${currentPage + 1})}"
+                    th:classappend="${!hasNext} ? 'pointer-events-none opacity-50' : 'hover:bg-gray-100'"
+                    class="flex items-center justify-center size-11 rounded-xl bg-white border border-gray-100 samsung-shadow text-gray-500 transition-all">
+                    <span class="material-symbols-outlined">chevron_right</span>
+                </a>
+            </div>
+
         </div>
     </main>
 
