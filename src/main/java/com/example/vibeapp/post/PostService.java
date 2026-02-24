@@ -1,8 +1,12 @@
 package com.example.vibeapp.post;
 
+import com.example.vibeapp.post.dto.PostCreateDto;
+import com.example.vibeapp.post.dto.PostListDto;
+import com.example.vibeapp.post.dto.PostResponseDto;
+import com.example.vibeapp.post.dto.PostUpdateDto;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService {
@@ -12,7 +16,7 @@ public class PostService {
         this.postRepository = postRepository;
     }
 
-    public List<Post> findAll(int page, int size) {
+    public List<PostListDto> findAll(int page, int size) {
         List<Post> allPosts = postRepository.findAll();
         int totalCount = allPosts.size();
         int fromIndex = (page - 1) * size;
@@ -20,27 +24,29 @@ public class PostService {
             return List.of();
         }
         int toIndex = Math.min(fromIndex + size, totalCount);
-        return allPosts.subList(fromIndex, toIndex);
+        return allPosts.subList(fromIndex, toIndex).stream()
+                .map(PostListDto::from)
+                .collect(Collectors.toList());
     }
 
     public int getTotalPages(int size) {
         return (int) Math.ceil((double) postRepository.count() / size);
     }
 
-    public Post view(Long no) {
+    public PostResponseDto view(Long no) {
         postRepository.increaseViews(no);
-        return postRepository.findById(no);
+        return PostResponseDto.from(postRepository.findById(no));
     }
 
-    public Post findById(Long no) {
-        return postRepository.findById(no);
+    public PostResponseDto findById(Long no) {
+        return PostResponseDto.from(postRepository.findById(no));
     }
 
-    public void update(Long no, String title, String content) {
+    public void update(Long no, PostUpdateDto dto) {
         Post post = postRepository.findById(no);
         if (post != null) {
-            post.setTitle(title);
-            post.setContent(content);
+            post.setTitle(dto.getTitle());
+            post.setContent(dto.getContent());
             post.setUpdatedAt(java.time.LocalDateTime.now());
         }
     }
@@ -49,14 +55,8 @@ public class PostService {
         postRepository.deleteById(no);
     }
 
-    public void create(String title, String content) {
-
-        Post post = new Post();
-        post.setTitle(title);
-        post.setContent(content);
-        post.setCreatedAt(java.time.LocalDateTime.now());
-        post.setUpdatedAt(null);
-        post.setViews(0);
+    public void create(PostCreateDto dto) {
+        Post post = dto.toEntity();
         postRepository.save(post);
     }
 }
