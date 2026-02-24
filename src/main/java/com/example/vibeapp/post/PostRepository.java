@@ -1,60 +1,22 @@
 package com.example.vibeapp.post;
 
-import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import java.util.List;
 
-@Repository
-public class PostRepository {
-    private static final List<Post> store = new ArrayList<>();
-    private static long sequence = 0L;
+@Mapper
+public interface PostRepository {
+    List<Post> findAll(@Param("offset") int offset, @Param("size") int size);
 
-    static {
-        for (int i = 1; i <= 10; i++) {
-            LocalDateTime now = LocalDateTime.now();
-            store.add(new Post(
-                    ++sequence,
-                    "테스트 게시글 제목 " + i,
-                    "테스트 게시글 내용입니다. " + i,
-                    now,
-                    now,
-                    (int) (Math.random() * 100)));
-        }
-    }
+    long count();
 
-    public List<Post> findAll() {
-        return store.stream()
-                .sorted((p1, p2) -> p2.getNo().compareTo(p1.getNo()))
-                .toList();
-    }
+    Post findById(Long no);
 
-    public long count() {
-        return store.size();
-    }
+    void save(Post post);
 
-    public Post findById(Long no) {
-        return store.stream()
-                .filter(post -> post.getNo().equals(no))
-                .findFirst()
-                .orElse(null);
-    }
+    void update(Post post);
 
-    public void increaseViews(Long no) {
-        store.stream()
-                .filter(post -> post.getNo().equals(no))
-                .findFirst()
-                .ifPresent(post -> post.setViews(post.getViews() + 1));
-    }
+    void deleteById(Long no);
 
-    public void deleteById(Long no) {
-        store.removeIf(post -> post.getNo().equals(no));
-    }
-
-    public void save(Post post) {
-
-        post.setNo(++sequence);
-        store.add(post);
-    }
+    void increaseViews(Long no);
 }

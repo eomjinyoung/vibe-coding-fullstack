@@ -1,5 +1,10 @@
-INSERT INTO post (title, content, created_at, views) VALUES ('첫 번째 게시글', '안녕하세요. H2 데이터베이스 테스트입니다.', CURRENT_TIMESTAMP, 0);
-INSERT INTO post (title, content, created_at, views) VALUES ('두 번째 게시글', 'MyBatis 연동 준비 중입니다.', CURRENT_TIMESTAMP, 0);
-INSERT INTO post (title, content, created_at, views) VALUES ('세 번째 게시글', 'Spring Boot 4.0.1 + Java 25.', CURRENT_TIMESTAMP, 0);
-INSERT INTO post (title, content, created_at, views) VALUES ('네 번째 게시글', '테스트 데이터입니다.', CURRENT_TIMESTAMP, 0);
-INSERT INTO post (title, content, created_at, views) VALUES ('다섯 번째 게시글', '반갑습니다.', CURRENT_TIMESTAMP, 0);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('Spring Boot 4.0 시작하기', 'Spring Boot 4.0과 Java 25를 이용한 현대적인 웹 개발 가이드입니다.', CURRENT_TIMESTAMP, 120);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('MyBatis vs JPA 선택 가이드', 'SQL 중심의 개발이라면 MyBatis, 객체 중심이라면 JPA를 선택하세요.', CURRENT_TIMESTAMP, 85);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('H2 데이터베이스 활용 팁', '인메모리 모드와 파일 모드의 차이점 및 설정 방법을 알아봅니다.', CURRENT_TIMESTAMP, 43);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('Thymeleaf 레이아웃 설정', '공통 헤더와 푸터를 효율적으로 관리하는 레이아웃 다이얼렉트 사용법.', CURRENT_TIMESTAMP, 67);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('자바 레코드(Record)의 장점', '데이터 전달 객체(DTO)를 선언할 때 record를 사용하면 코드가 얼마나 간결해지는지 확인하세요.', CURRENT_TIMESTAMP, 156);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('Bean Validation 커스텀 가이드', '기본 애노테이션 외에 복잡한 비즈니스 로직을 검증하는 커스텀 검증기 만들기.', CURRENT_TIMESTAMP, 32);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('REST API 설계 베스트 프렉티스', '일관성 있고 유지보수가 쉬운 API를 설계하기 위한 규칙들.', CURRENT_TIMESTAMP, 210);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('Gradle 빌드 최적화', '대규모 프로젝트에서 빌드 속도를 높이기 위한 캐시 및 설정 팁.', CURRENT_TIMESTAMP, 12);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('CSS Flexbox 마스터하기', '모던 웹 레이아웃의 필수 요소인 Flexbox를 완벽하게 이해해봅시다.', CURRENT_TIMESTAMP, 98);
+INSERT INTO POSTS (TITLE, CONTENT, CREATED_AT, VIEWS) VALUES ('바이브코딩 커뮤니티 가이드', '함께 공부하고 성장하는 문화를 만들기 위한 커뮤니티 행동 강령.', CURRENT_TIMESTAMP, 5);

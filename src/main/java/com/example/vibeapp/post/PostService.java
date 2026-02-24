@@ -17,14 +17,8 @@ public class PostService {
     }
 
     public List<PostListDto> findAll(int page, int size) {
-        List<Post> allPosts = postRepository.findAll();
-        int totalCount = allPosts.size();
-        int fromIndex = (page - 1) * size;
-        if (fromIndex >= totalCount) {
-            return List.of();
-        }
-        int toIndex = Math.min(fromIndex + size, totalCount);
-        return allPosts.subList(fromIndex, toIndex).stream()
+        int offset = (page - 1) * size;
+        return postRepository.findAll(offset, size).stream()
                 .map(PostListDto::from)
                 .collect(Collectors.toList());
     }
@@ -48,6 +42,7 @@ public class PostService {
             post.setTitle(dto.title());
             post.setContent(dto.content());
             post.setUpdatedAt(java.time.LocalDateTime.now());
+            postRepository.update(post);
         }
     }
 
