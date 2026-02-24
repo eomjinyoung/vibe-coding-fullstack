@@ -116,7 +116,11 @@
                 <a th:href="@{/posts(page=${currentPage - 1})}"
                     th:classappend="${!hasPrev} ? 'pointer-events-none opacity-50' : 'hover:bg-gray-100'"
                     class="flex items-center justify-center size-11 rounded-xl bg-white border border-gray-100 samsung-shadow text-gray-500 transition-all">
-                    <span class="material-symbols-outlined">chevron_left</span>
+                    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7">
+                        </path>
+                    </svg>
                 </a>
 
                 <!-- Page Numbers -->
@@ -134,7 +138,10 @@
                 <a th:href="@{/posts(page=${currentPage + 1})}"
                     th:classappend="${!hasNext} ? 'pointer-events-none opacity-50' : 'hover:bg-gray-100'"
                     class="flex items-center justify-center size-11 rounded-xl bg-white border border-gray-100 samsung-shadow text-gray-500 transition-all">
-                    <span class="material-symbols-outlined">chevron_right</span>
+                    <svg class="size-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                    </svg>
                 </a>
             </div>
 
